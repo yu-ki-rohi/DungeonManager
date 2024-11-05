@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Objects
+  - Field
+  - Debug
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Field
+    uniqueID: 1020912867
+    locked: 0
+  - name: Objects
+    uniqueID: 1628408325
+    locked: 0
+  - name: UI
+    uniqueID: 2281297973
     locked: 0

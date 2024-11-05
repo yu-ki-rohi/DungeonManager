@@ -6,6 +6,7 @@ public class CharacterBase : MonoBehaviour
 {
     [SerializeField] private float _speed = 3.0f;
     [SerializeField] private Signpost _destination;
+    private Signpost _beforeSignpost;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,9 @@ public class CharacterBase : MonoBehaviour
         {
             if ((transform.position - _destination.transform.position).sqrMagnitude < 0.01f)
             {
-                _destination = _destination.GetNextDestination();
+                Signpost currentSignpost = _destination;
+                _destination = _destination.GetNextDestination(_beforeSignpost);
+                _beforeSignpost = currentSignpost;
             }
         }
 

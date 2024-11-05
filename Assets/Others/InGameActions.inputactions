@@ -1,0 +1,34 @@
+{
+    "name": "InGameActions",
+    "maps": [
+        {
+            "name": "Play",
+            "id": "5cd804de-2612-4cd6-8f7b-f2b366e3fbf9",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "4d79393f-0def-4171-bd00-e3059abeef95",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50debf94-81c2-40d9-8f9b-a451881a8bf0",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

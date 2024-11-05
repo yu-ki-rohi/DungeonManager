@@ -11,19 +11,31 @@ public class Signpost : MonoBehaviour
 
 
     // 公開メソッド
-    public Signpost GetNextDestination()
+    public Signpost GetNextDestination(Signpost beforeSignpost = null)
     {
+        // どこにも向かえない場合、自身を返す
         if (_adjacentSignposts.Length <= 0)
         {
             return this;
         }
+        // 行き先が一つの場合は、そこを返す
+        else if (_adjacentSignposts.Length == 1)
+        {
+            return _adjacentSignposts[0];
+        }
 
-        int judge = Random.Range(0, _adjacentSignposts.Length);
+        // 直前の場所を引き数で渡された場合、そこ以外を返す
+        int judge;
+        do
+        {
+            judge = Random.Range(0, _adjacentSignposts.Length);
+        } while (_adjacentSignposts[judge] == beforeSignpost);
         return _adjacentSignposts[judge];
     }
 
 
     // 非公開メソッド
+
 
 
     // Start is called before the first frame update
