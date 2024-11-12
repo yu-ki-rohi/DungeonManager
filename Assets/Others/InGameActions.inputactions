@@ -6,24 +6,64 @@
             "id": "5cd804de-2612-4cd6-8f7b-f2b366e3fbf9",
             "actions": [
                 {
-                    "name": "Tap",
+                    "name": "Press",
                     "type": "Button",
-                    "id": "4d79393f-0def-4171-bd00-e3059abeef95",
+                    "id": "f05712d9-e818-45e0-ada9-8c9179cbb15f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "555a9036-b604-4c60-82e8-eeb9e75ff45c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Delta",
+                    "type": "Value",
+                    "id": "31230562-f7d8-429c-bf6d-8e75a682ff7c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "50debf94-81c2-40d9-8f9b-a451881a8bf0",
-                    "path": "<Touchscreen>/Press",
+                    "id": "5940db52-71d5-452a-b471-60092179cc68",
+                    "path": "<Pointer>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tap",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bffbc9f9-0745-4dab-921c-0ef98b7d1758",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de5b70e6-d60a-4eb9-b4d3-b88576277875",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Delta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
