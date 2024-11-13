@@ -20,6 +20,6 @@ MonoBehaviour:
       MaxHp: 100
       Attack: 10
       CoolTime: 1
-      Speed: 10
+      Speed: 1
     OptionStatus:
       Money: 0
