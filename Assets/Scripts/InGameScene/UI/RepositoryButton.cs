@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class RepositoryButton : UIButton
 {
+    [SerializeField] protected int _index;
 
-    public override void PressBehave()
+    public override UIButton PressBehave()
     {
-
+        return base.PressBehave();
     }
 
-    public override void ReleaseBehave()
+    public override int ReleaseBehave()
     {
-
+        return _index;
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         
     }

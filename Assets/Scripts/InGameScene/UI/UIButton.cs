@@ -7,24 +7,24 @@ public class UIButton : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public virtual void PressBehave()
+    public virtual UIButton PressBehave()
     {
-
+        return this;
     }
 
-    public virtual void ReleaseBehave()
+    public virtual int ReleaseBehave()
     {
-
+        return -1;
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }

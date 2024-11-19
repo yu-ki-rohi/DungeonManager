@@ -9,12 +9,29 @@ public class CharacterBase : MonoBehaviour
     [SerializeField] private bool _isReturn = false;
     private SpriteRenderer _spriteRenderer;
     private Signpost _beforeSignpost;
+    private int _index = 0;
     private Vector3 _dir = Vector3.zero;
+
+    public void Initialize(Signpost destination, CharacterList characterList, int index, Vector3 dir)
+    {
+        _destination = destination;
+        _characterList = characterList;
+        _index = index;
+        _dir = dir;
+        if(_spriteRenderer != null)
+        {
+            _spriteRenderer.sprite = _characterList.Get(0).Info.Sprite;
+        }
+
+        // TODO:ÇªÇÃëºèâä˙âªèàóù
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.sprite = _characterList.Get(0).Info.Sprite;
+        _spriteRenderer.sprite = _characterList.Get(_index).Info.Sprite;
         _dir = (_destination.transform.position - transform.position).normalized;
     }
 
@@ -48,7 +65,7 @@ public class CharacterBase : MonoBehaviour
 #endif
             }
         }
-        transform.position += _dir * _characterList.Get(0).Status.Speed * Time.deltaTime;
+        transform.position += _dir * _characterList.Get(_index).Status.Speed * Time.deltaTime;
 #else
             }
         }

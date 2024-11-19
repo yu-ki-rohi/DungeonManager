@@ -183,6 +183,40 @@ public class Signpost : MonoBehaviour
         dir = _directs[_returnIndex];
         return _adjacentSignposts[_returnIndex];
     }
+
+    public Signpost GetApperDestination(out Vector3 dir, out Vector3 apperPosition, Vector3 position)
+    {
+        dir = Vector3.zero;
+        apperPosition = this.transform.position;
+        Signpost destination = this;
+        if (_adjacentSignposts.Length <= 0)
+        {
+            return destination;
+        }
+
+
+        // 最もなす角が小さい方向を目的地に
+        float dot = -2.0f;
+        Vector3 toInputPositionNormalized = (position - this.transform.position).normalized;
+        for(int i = 0; i < _adjacentSignposts.Length; i++)
+        {
+            float tmpDot = Vector3.Dot(toInputPositionNormalized, _directs[i]);
+            if (dot < tmpDot)
+            {
+                dot = tmpDot;
+                dir = _directs[i];
+                destination = _adjacentSignposts[i];
+            }
+        }
+
+        // 出現座標の設定
+        if(dot > 0)
+        {
+            apperPosition = (position - this.transform.position).magnitude * dot * dir + this.transform.position;
+        }
+        return destination;
+    }
+
     void Start()
     {
         _directs = new Vector3[_adjacentSignposts.Length];
