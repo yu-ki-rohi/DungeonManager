@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class ActionManager : MonoBehaviour
 {
     [SerializeField] private float _cameraSpeed = 1.0f;
     [SerializeField] private MonsterPool _monsterPool;
+    [SerializeField] private GameObject _monsterImage;
     private bool _isMovingCamera = false;
     private Vector2 _position = Vector2.zero;
     private Vector2 _delta = Vector2.zero;
     private UIButton _uiButton;
+    private Image _image;
 
     public void OnPress(InputAction.CallbackContext context)
     {
@@ -22,6 +25,10 @@ public class ActionManager : MonoBehaviour
                 if(hit.collider.TryGetComponent<UIButton>(out var uiButton))
                 {
                     _uiButton = uiButton.PressBehave();
+
+                    //‰¼’u‚«•”•ª
+                    _image.enabled = true;
+                    //
                 }
                 return;
             }
@@ -31,23 +38,30 @@ public class ActionManager : MonoBehaviour
         {
             RaycastHit2D hit = CheckHitUI();
             _isMovingCamera = false;
-            if(_uiButton != null)
-            {
-                int index = _uiButton.ReleaseBehave();
-                Vector3 position = Camera.main.ScreenToWorldPoint(_position);
-                position.z = 0.0f;
-                Debug.Log(position);
-                _monsterPool.Get(index, position);
-                _uiButton = null;
-            }
+
             if (hit)
             {
                 if (hit.collider.TryGetComponent<UIButton>(out var uiButton))
                 {
-                    uiButton.ReleaseBehave();
+                    uiButton.ReleaseInBehave();
+
+                    //‰¼’u‚«•”•ª
+                    _image.enabled = false;
+                    //
                 }
-                return;
             }
+            else if (_uiButton != null)
+            {
+                int index = _uiButton.ReleaseOutBehave();
+                Vector3 position = Camera.main.ScreenToWorldPoint(_position);
+                position.z = 0.0f;
+                _monsterPool.Get(index, position);
+
+                //‰¼’u‚«•”•ª
+                _image.enabled = false;
+                //
+            }
+            _uiButton = null;
         }
     }
 
@@ -65,12 +79,17 @@ public class ActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(_monsterImage != null)
+        {
+            _image = _monsterImage.GetComponent<Image>();
+            _image.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        _monsterImage.transform.position = _position;
         if(_isMovingCamera)
         {
             Camera.main.transform.position -= new Vector3(_delta.x, _delta.y, 0) * Time.deltaTime * _cameraSpeed;

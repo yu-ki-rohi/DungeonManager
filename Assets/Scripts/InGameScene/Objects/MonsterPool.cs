@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterPool : ObjectPoolBase
+public class MonsterPool : CharacterPool
 {
     [SerializeField] private Transform _signpostsParent;
     [SerializeField] private MonsterList _monsterList;
@@ -15,6 +15,8 @@ public class MonsterPool : ObjectPoolBase
         {
             return null;
         }
+
+        // 余裕ができたらアルゴリズムを変更
 
         // 出現位置の根本側を決定
         float distance = -1.0f;
@@ -33,13 +35,14 @@ public class MonsterPool : ObjectPoolBase
         {
             Vector3 dir, appearPosition;
             Signpost destination = apperSignpost.GetApperDestination(out dir, out appearPosition, position);
-            GameObject monster = base.Get(appearPosition);
+            GameObject monster = Get(appearPosition);
 
             // TODO:方向、目的地とモンスター情報の初期化処理
             if(monster.TryGetComponent<CharacterBase>(out var charaBase))
             {
-                charaBase.Initialize(destination, _monsterList, id, dir);
+                charaBase.Initialize(destination, apperSignpost, _monsterList.Get(id), dir, this);
             }
+            return monster;
         }
         return null;
     }

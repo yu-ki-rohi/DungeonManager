@@ -5,14 +5,28 @@ using UnityEngine;
 public class UIButton : MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// ボタンを押したときのふるまい
     /// </summary>
+    /// <returns>自身を渡す</returns>
     public virtual UIButton PressBehave()
     {
         return this;
     }
 
-    public virtual int ReleaseBehave()
+    /// <summary>
+    /// ボタン上で離された時のふるまい
+    /// </summary>
+    /// <returns></returns>
+    public virtual int ReleaseInBehave()
+    {
+        return -1;
+    }
+
+    /// <summary>
+    /// ボタン外で離された時のふるまい
+    /// </summary>
+    /// <returns></returns>
+    public virtual int ReleaseOutBehave()
     {
         return -1;
     }

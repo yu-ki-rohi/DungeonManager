@@ -11,7 +11,12 @@ public class RepositoryButton : UIButton
         return base.PressBehave();
     }
 
-    public override int ReleaseBehave()
+    public override int ReleaseInBehave()
+    {
+        return _index;
+    }
+
+    public override int ReleaseOutBehave()
     {
         return _index;
     }

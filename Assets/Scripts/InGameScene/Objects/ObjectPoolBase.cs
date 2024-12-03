@@ -54,7 +54,7 @@ public class ObjectPoolBase : MonoBehaviour
             OnTakeFromPool,
             OnReturnedToPool,
             OnDestroyPoolObject,
-            false,
+            true,
             _baseNum,
             _maxNum);
     }
