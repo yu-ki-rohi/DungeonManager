@@ -6,24 +6,28 @@ using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
 {
-    
-    // 
-    private bool _isReturn = false;
     private SpriteRenderer _spriteRenderer;
-    // 目的地
+
+    // 撤退状態かどうか・プレイヤーのみ?
+    private bool _isReturn = false;
+    // 目標となる道しるべ
     private Signpost _destination;
+    // 直前に通過した道しるべ
     private Signpost _beforeSignpost;
+    // 移動方向
     private Vector3 _dir = Vector3.zero;
-
+    // 自身を管理しているプール
     private ObjectPoolBase _pool;
+    // 参照するデータ
     private CharaData _charaData;   // いずれ取得のみに制限できるようにしたい
-
+    // 戦闘相手のリスト
     private List<CharacterBase> _opponentList = new List<CharacterBase>();
 
     private int _currentHp;
     private float _attackTimer;
     private int _targetIndex = 0;
 
+    // プロパティ
     public Signpost Destination { get { return _destination; } }
     public Signpost BeforeSingPost { get { return _beforeSignpost; } }
 
@@ -32,6 +36,8 @@ public class CharacterBase : MonoBehaviour
     public bool IsReturn { get { return _isReturn; } }
     public Vector2 Direction { get { return _dir; } }
 
+    // 公開メソッド
+    // 初期化
     public void Initialize(Signpost destination, Signpost before, CharaData charaData, Vector3 dir, ObjectPoolBase pool)
     {
         _destination = destination;
@@ -51,20 +57,26 @@ public class CharacterBase : MonoBehaviour
         _targetIndex = 0;
     }
 
+    /// <summary>
+    /// 攻撃対象の追加
+    /// </summary>
+    /// <param name="opponent">追加する相手</param>
     public void AddOpponent(CharacterBase opponent)
     {
         _opponentList.Add(opponent);
     }
 
     /// <summary>
-    /// 
+    /// 攻撃対象の削除
     /// </summary>
-    /// <param name="opponent"></param>
+    /// <param name="opponent">削除する相手</param>
     /// <param name="other">逃げて消失した際に追わせる場合に使用</param>
     public void RemoveOpponent(CharacterBase opponent, Transform other = null)
     {
         _targetIndex = 0;
         _opponentList.Remove(opponent);
+
+        // 最後の相手が逃げた場合、追いかける
         if(_opponentList.Count == 0 && other != null)
         {
             Vector3 toOpponent = other.position - transform.position;
@@ -75,11 +87,18 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 攻撃対象を全削除
+    /// </summary>
     public void ClearOpponent()
     {
         _opponentList.Clear();
     }
 
+    /// <summary>
+    /// ダメージを受けるメソッド
+    /// </summary>
+    /// <param name="damage">受けるダメージ</param>
     public void Damage(int damage)
     {
         _currentHp -= damage;
@@ -89,6 +108,9 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// キャラクターの行動
+    /// </summary>
     protected virtual void Action()
     {
         if (_opponentList.Count > 0)
@@ -109,6 +131,9 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 戦闘時の行動
+    /// </summary>
     protected virtual void Battle()
     {
         if(_targetIndex < _opponentList.Count)
@@ -121,6 +146,11 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 逃走可能かどうかを判断
+    /// </summary>
+    /// <param name="dir">逃走方向</param>
+    /// <returns>逃走が可能か</returns>
     protected bool Escape(Vector3 dir)
     {
         for(int i = 0;  i < _opponentList.Count; i++)
@@ -128,19 +158,18 @@ public class CharacterBase : MonoBehaviour
             Vector3 toOpponent = _opponentList[i].gameObject.transform.position - transform.position;
             if (Vector3.Dot(toOpponent, dir) > 0 || _opponentList[i].CharaData.Status.Speed > CharaData.Status.Speed)
             {
+                // ・進行方向に敵がいる
+                // ・自分より移動速度が速い敵がいる
+                // 上記いずれかを満たす場合、逃走失敗 and その敵をロックオン
                 _targetIndex = i;
                 return false;
             }
-        }
-        foreach (var opponent in _opponentList)
-        {
-           
         }
         return true;
     }
 
     /// <summary>
-    /// 
+    /// 戦闘終了
     /// </summary>
     /// <param name="isEscape">逃げたかどうか</param>
     protected void FinishBattle(bool isEscape = false)
@@ -158,12 +187,11 @@ public class CharacterBase : MonoBehaviour
         ClearOpponent();
         _targetIndex = 0;
     }
-    protected void DisAppear()
-    {
-        FinishBattle();
-        _pool.Release(gameObject);
-    }
 
+
+    /// <summary>
+    /// 移動メソッド
+    /// </summary>
     protected virtual void Move()
     {
         if (_destination != null)
@@ -202,6 +230,18 @@ public class CharacterBase : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// 自身がシーンから退場する際に呼び出す
+    /// </summary>
+    protected void DisAppear()
+    {
+        FinishBattle();
+        _pool.Release(gameObject);
+    }
+
+    /// <summary>
+    /// 撤退状態へ移行するメソッド
+    /// </summary>
     protected void ReturnToEntrance()
     {
         _isReturn = true;
@@ -211,6 +251,9 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 移動方向の反転
+    /// </summary>
     protected void TurnBack()
     {
         _dir *= -1;
@@ -233,9 +276,12 @@ public class CharacterBase : MonoBehaviour
         Action();
     }
 
+    /// <summary>
+    /// キャラクターが倒された際のメソッド
+    /// </summary>
     private void Die()
     {
-        // 以下死亡時処理追加
+        // 以下に倒された際の処理
 
         //
         DisAppear();

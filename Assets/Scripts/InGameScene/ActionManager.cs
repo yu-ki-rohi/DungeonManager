@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// 入力・レスポンスを管理
+/// </summary>
 public class ActionManager : MonoBehaviour
 {
     [SerializeField] private float _cameraSpeed = 1.0f;

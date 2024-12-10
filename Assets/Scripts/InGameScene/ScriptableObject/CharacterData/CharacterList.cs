@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// TODO 検討:インターフェースを利用したほうが良い設計になるかも?
+
 [Serializable]
 public class InfoOfCharacter
 {

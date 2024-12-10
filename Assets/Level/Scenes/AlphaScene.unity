@@ -156,8 +156,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 1875583142}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &82548712
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -489,8 +487,6 @@ MonoBehaviour:
   - {fileID: 1786310587}
   - {fileID: 1106159438}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &256550007
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -696,8 +692,6 @@ MonoBehaviour:
   - {fileID: 1409911059}
   - {fileID: 893333347}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &316629828
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -801,8 +795,6 @@ MonoBehaviour:
   - {fileID: 897078132}
   - {fileID: 628087432}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &416312046
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -939,8 +931,6 @@ MonoBehaviour:
   - {fileID: 1865707596}
   - {fileID: 919550356}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &488577299
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1042,8 +1032,6 @@ MonoBehaviour:
   - {fileID: 1106159438}
   - {fileID: 966139690}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &558846733
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1145,8 +1133,6 @@ MonoBehaviour:
   - {fileID: 416312045}
   - {fileID: 1865707596}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &628087433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1299,8 +1285,6 @@ MonoBehaviour:
   - {fileID: 1409911059}
   - {fileID: 914004283}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &761663858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1401,8 +1385,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 316629827}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &893333348
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1504,8 +1486,6 @@ MonoBehaviour:
   - {fileID: 416312045}
   - {fileID: 1875583142}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &897078133
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1608,8 +1588,6 @@ MonoBehaviour:
   - {fileID: 1975824068}
   - {fileID: 1997961694}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &914004284
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1712,8 +1690,6 @@ MonoBehaviour:
   - {fileID: 488577298}
   - {fileID: 1629154139}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &919550357
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1902,8 +1878,6 @@ MonoBehaviour:
   - {fileID: 1222900775}
   - {fileID: 1629154139}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &966139691
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2234,8 +2208,6 @@ MonoBehaviour:
   - {fileID: 558846732}
   - {fileID: 1997961694}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1106159439
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2303,6 +2275,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 137886962}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1109626728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1109626729}
+  m_Layer: 0
+  m_Name: Singleton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1109626729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109626728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.237145, y: -6.3677096, z: -1.1230716}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1135619071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,8 +2340,6 @@ MonoBehaviour:
   - {fileID: 416312045}
   - {fileID: 256550006}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1135619073
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2439,8 +2440,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 966139690}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1222900776
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2542,8 +2541,6 @@ MonoBehaviour:
   - {fileID: 1865707596}
   - {fileID: 1680197261}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1381216619
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2645,8 +2642,6 @@ MonoBehaviour:
   - {fileID: 761663857}
   - {fileID: 316629827}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1409911060
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2747,8 +2742,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 1975824068}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1561555045
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2864,8 +2857,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 1793465311}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1571769629
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3062,8 +3053,6 @@ MonoBehaviour:
   - {fileID: 966139690}
   - {fileID: 919550356}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1629154140
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3165,8 +3154,6 @@ MonoBehaviour:
   - {fileID: 1381216618}
   - {fileID: 1841554251}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1680197262
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3267,8 +3254,6 @@ MonoBehaviour:
   _adjacentSignposts:
   - {fileID: 256550006}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1786310588
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3370,8 +3355,6 @@ MonoBehaviour:
   - {fileID: 1997961694}
   - {fileID: 1571769628}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1793465312
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3473,8 +3456,6 @@ MonoBehaviour:
   - {fileID: 1680197261}
   - {fileID: 919550356}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1841554252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3828,8 +3809,6 @@ MonoBehaviour:
   - {fileID: 488577298}
   - {fileID: 1381216618}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1865707597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3932,8 +3911,6 @@ MonoBehaviour:
   - {fileID: 82548711}
   - {fileID: 761663857}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1875583143
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4035,8 +4012,6 @@ MonoBehaviour:
   - {fileID: 914004283}
   - {fileID: 1561555044}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1975824069
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4139,8 +4114,6 @@ MonoBehaviour:
   - {fileID: 914004283}
   - {fileID: 1793465311}
   _isRoom: 0
-  _value: -1
-  _depth: -1
 --- !u!212 &1997961695
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4363,3 +4336,4 @@ SceneRoots:
   - {fileID: 311783596}
   - {fileID: 982311032}
   - {fileID: 169762212}
+  - {fileID: 1109626729}

@@ -7,7 +7,7 @@ public class Explorer : CharacterBase
     private float _stamina;
     public void Initialize(Signpost destination, Signpost before, ExplorerData charaData, Vector3 dir, ObjectPoolBase pool)
     {
-        base.Initialize(destination,before, (CharaData)charaData, dir, pool);
+        base.Initialize(destination,before, charaData, dir, pool);
         _stamina = charaData.OptionStatus.StaminaMax;
     }
 
@@ -16,6 +16,9 @@ public class Explorer : CharacterBase
         base.Action();
         if (!IsReturn)
         {
+            // ・HPが一定値を下回る
+            // ・スタミナが尽きる
+            // 以上いずれかの条件を満たしたら撤退状態へ遷移
             if (CurrentHp < CharaData.Status.MaxHp / 2)
             {
                 ReturnToEntrance();
@@ -40,6 +43,7 @@ public class Explorer : CharacterBase
         }
         else
         {
+            // 撤退状態の際は逃走を試みる
             if(Escape(Direction))
             {
                 FinishBattle();
