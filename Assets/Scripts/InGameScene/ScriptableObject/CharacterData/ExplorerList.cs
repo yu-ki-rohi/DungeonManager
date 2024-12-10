@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public class StatusOfExplorer
 {
+    public float StaminaMax = 60.0f;
     public int Money = 10;
 }
 

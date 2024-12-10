@@ -13,10 +13,10 @@ public class ExplorerPool : CharacterPool
     {
         GameObject explorer = Get(_entrancePosition.position);
 
-        // TODO:方向、目的地とモンスター情報の初期化処理
-        if (explorer.TryGetComponent<CharacterBase>(out var charaBase))
+        // TODO:方向、目的地と探索者情報の初期化処理
+        if (explorer.TryGetComponent<Explorer>(out var charaBase))
         {
-            charaBase.Initialize(_startDestination, null, _explorerList.Get(id), _firstDir, this);
+            charaBase.Initialize(_startDestination, null, _explorerList.GetOptionData(id), _firstDir, this);
         }
         return explorer;
     }

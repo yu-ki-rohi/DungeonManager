@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Explorer
   - Monster
+  - Entrance
   layers:
   - Default
   - TransparentFX
