@@ -1,0 +1,28 @@
+# Top-most EditorConfig file
+root = true
+
+# encode
+[*.cs]
+charset = utf-8
+
+# インデントは4スペース
+indent_style = space
+indent_size = 4
+
+# 行の長さを指定（80文字または100文字まで）
+# 目安のため、Visual Studioにはガイドラインを設定するのみ
+max_line_length = 100
+
+# 1行1ステートメントルールを強制
+csharp_style_allow_embedded_statements_on_same_line = false
+
+# 波括弧のスタイル（Allmanスタイル推奨。K&Rスタイルは適宜コメントアウト）
+# 波括弧を省略しない（if, for, while などで必須）
+csharp_style_allow_embedded_statements_on_same_line = false
+csharp_new_line_before_open_brace = all
+
+# ファイルの最後に必ず改行を入れる
+insert_final_newline = true
+
+# 不要な空白を削除
+trim_trailing_whitespace = true

@@ -59,6 +59,10 @@ public class CharacterBase : MonoBehaviour
     public void Damage(int damage)
     {
         _currentHp -= damage;
+        if (_currentHp <= 0)
+        {
+            Die();
+        }
     }
 
 
@@ -78,10 +82,7 @@ public class CharacterBase : MonoBehaviour
         {
             if (_attackTimer < 0)
             {
-                foreach (var opponent in _opponentList)
-                {
-                    opponent.Damage(_charaData.Status.Attack);
-                }
+                _opponentList[0].Damage(_charaData.Status.Attack);
                 _attackTimer = _charaData.Status.CoolTime;
             }
             else
@@ -125,11 +126,6 @@ public class CharacterBase : MonoBehaviour
         // 処理速度への影響を確認する用
         transform.position += (_destination.transform.position - transform.position).normalized * _characterList.Get(0).Status.Speed * Time.deltaTime;
 #endif
-        }
-
-        if (_currentHp <= 0)
-        {
-            Die();
         }
     }
 
