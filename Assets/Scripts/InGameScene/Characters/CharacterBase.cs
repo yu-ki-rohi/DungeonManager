@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class CharacterBase : MonoBehaviour
 
     private int _currentHp;
     private float _attackTimer;
+    private int _targetIndex = 0;
 
     public Signpost Destination { get { return _destination; } }
     public Signpost BeforeSingPost { get { return _beforeSignpost; } }
@@ -28,6 +30,7 @@ public class CharacterBase : MonoBehaviour
     public int CurrentHp { get { return _currentHp; } }
     public CharaData CharaData { get { return _charaData;} }
     public bool IsReturn { get { return _isReturn; } }
+    public Vector2 Direction { get { return _dir; } }
 
     public void Initialize(Signpost destination, Signpost before, CharaData charaData, Vector3 dir, ObjectPoolBase pool)
     {
@@ -45,6 +48,7 @@ public class CharacterBase : MonoBehaviour
         _currentHp = _charaData.Status.MaxHp;
         _attackTimer = _charaData.Status.CoolTime;
         _isReturn = false;
+        _targetIndex = 0;
     }
 
     public void AddOpponent(CharacterBase opponent)
@@ -52,9 +56,23 @@ public class CharacterBase : MonoBehaviour
         _opponentList.Add(opponent);
     }
 
-    public void RemoveOpponent(CharacterBase opponent)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="opponent"></param>
+    /// <param name="other">ì¶Ç∞Çƒè¡é∏ÇµÇΩç€Ç…í«ÇÌÇπÇÈèÍçáÇ…égóp</param>
+    public void RemoveOpponent(CharacterBase opponent, Transform other = null)
     {
+        _targetIndex = 0;
         _opponentList.Remove(opponent);
+        if(_opponentList.Count == 0 && other != null)
+        {
+            Vector3 toOpponent = other.position - transform.position;
+            if(Vector3.Dot(toOpponent, Direction) < 0)
+            {
+                TurnBack();
+            }
+        }
     }
 
     public void ClearOpponent()
@@ -78,6 +96,7 @@ public class CharacterBase : MonoBehaviour
             if (_attackTimer < 0)
             {
                 Battle();
+                _attackTimer = _charaData.Status.CoolTime;
             }
             else
             {
@@ -92,22 +111,56 @@ public class CharacterBase : MonoBehaviour
 
     protected virtual void Battle()
     {
-        _opponentList[0].Damage(_charaData.Status.Attack);
-        _attackTimer = _charaData.Status.CoolTime;
+        if(_targetIndex < _opponentList.Count)
+        {
+            _opponentList[_targetIndex].Damage(_charaData.Status.Attack);
+        }
+        else
+        {
+            _opponentList[0].Damage(_charaData.Status.Attack);
+        }
     }
 
-    protected void Escape()
+    protected bool Escape(Vector3 dir)
     {
+        for(int i = 0;  i < _opponentList.Count; i++)
+        {
+            Vector3 toOpponent = _opponentList[i].gameObject.transform.position - transform.position;
+            if (Vector3.Dot(toOpponent, dir) > 0 || _opponentList[i].CharaData.Status.Speed > CharaData.Status.Speed)
+            {
+                _targetIndex = i;
+                return false;
+            }
+        }
         foreach (var opponent in _opponentList)
         {
-            opponent.RemoveOpponent(this);
+           
         }
-        ClearOpponent();
+        return true;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="isEscape">ì¶Ç∞ÇΩÇ©Ç«Ç§Ç©</param>
+    protected void FinishBattle(bool isEscape = false)
+    {
+        Transform transform = null;
+        if(isEscape)
+        {
+            transform = this.transform;
+        }
+
+        foreach (var opponent in _opponentList)
+        {
+            opponent.RemoveOpponent(this,transform);
+        }
+        ClearOpponent();
+        _targetIndex = 0;
+    }
     protected void DisAppear()
     {
-        Escape();
+        FinishBattle();
         _pool.Release(gameObject);
     }
 
@@ -154,11 +207,16 @@ public class CharacterBase : MonoBehaviour
         _isReturn = true;
         if(_destination.Depth > _beforeSignpost.Depth)
         {
-            _dir *= -1;
-            Signpost tmp = _destination;
-            _destination = _beforeSignpost;
-            _beforeSignpost = tmp;
+            TurnBack();
         }
+    }
+
+    protected void TurnBack()
+    {
+        _dir *= -1;
+        Signpost tmp = _destination;
+        _destination = _beforeSignpost;
+        _beforeSignpost = tmp;
     }
 
     // Start is called before the first frame update

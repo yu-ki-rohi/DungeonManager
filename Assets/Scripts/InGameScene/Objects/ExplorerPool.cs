@@ -16,7 +16,7 @@ public class ExplorerPool : CharacterPool
         // TODO:•ûŒüA–Ú“I’n‚Æ’TõÒî•ñ‚Ì‰Šú‰»ˆ—
         if (explorer.TryGetComponent<Explorer>(out var charaBase))
         {
-            charaBase.Initialize(_startDestination, null, _explorerList.GetOptionData(id), _firstDir, this);
+            charaBase.Initialize(_startDestination, _startDestination, _explorerList.GetOptionData(id), _firstDir, this);
         }
         return explorer;
     }

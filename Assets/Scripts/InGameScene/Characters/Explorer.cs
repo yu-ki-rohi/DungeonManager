@@ -40,7 +40,14 @@ public class Explorer : CharacterBase
         }
         else
         {
-            Escape();
+            if(Escape(Direction))
+            {
+                FinishBattle();
+            }
+            else
+            {
+                base.Battle();
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,9 +60,13 @@ public class Explorer : CharacterBase
                 AddOpponent(charaBase);
             }
         }
-        else if(collision.tag == "Entrance")
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Entrance")
         {
-            if(IsReturn)
+            if (IsReturn)
             {
                 DisAppear();
             }
