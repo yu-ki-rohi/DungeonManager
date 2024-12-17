@@ -5,6 +5,7 @@ using UnityEngine;
 public class Explorer : CharacterBase
 {
     private float _stamina;
+    private float _satisfaction = 0.0f;
     public void Initialize(Signpost destination, Signpost before, ExplorerData charaData, Vector3 dir, ObjectPoolBase pool)
     {
         base.Initialize(destination,before, charaData, dir, pool);
@@ -58,6 +59,7 @@ public class Explorer : CharacterBase
     {
         if (collision.tag == "Monster")
         {
+            // Ú“G‚Ì’Ê’m‚Í’TõÒ‘¤‚©‚çs‚¤
             if (collision.TryGetComponent<CharacterBase>(out var charaBase))
             {
                 charaBase.AddOpponent(this);

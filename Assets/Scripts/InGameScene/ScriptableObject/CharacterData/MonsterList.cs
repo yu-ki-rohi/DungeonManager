@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class StatusOfMonster
 {
-    public int Money = 10;
+    public int Cost = 10;
 }
 
 [Serializable]

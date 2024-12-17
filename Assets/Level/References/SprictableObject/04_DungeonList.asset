@@ -9,17 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 267b4b0fc0ed3e84f9b3af3b97d1ab08, type: 3}
-  m_Name: MonsterList
+  m_Script: {fileID: 11500000, guid: de8f548929450b6448b487844f7dd336, type: 3}
+  m_Name: 04_DungeonList
   m_EditorClassIdentifier: 
   List:
   - Info:
-      Name: Skeleton
-      Sprite: {fileID: 21300000, guid: 44eecbdb64ecd8048a927f911f2a0658, type: 3}
+      Name: Test
+      Map: {fileID: 5103324343374910421, guid: 968ea872f8b6b90468287cebee7a3a20, type: 3}
     Status:
-      MaxHp: 100
-      Attack: 10
-      CoolTime: 1
-      Speed: 1
-    OptionStatus:
-      Money: 0
+      Time: 0
+      Speed: 0

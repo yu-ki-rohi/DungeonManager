@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b59def5fc8558f84cb830f63eb6299f6, type: 3}
-  m_Name: ExplorerList
+  m_Name: 01_ExplorerList
   m_EditorClassIdentifier: 
   List:
   - Info:
       Name: Swordsman
-      Sprite: {fileID: 21300000, guid: fc5b07b342e4a0947960214821c4d506, type: 3}
+      Sprite: {fileID: 21300000, guid: 43792a41add007c46aeee2e3e5c79f3f, type: 3}
     Status:
       MaxHp: 100
       Attack: 20
@@ -23,4 +23,5 @@ MonoBehaviour:
       Speed: 1.12
     OptionStatus:
       StaminaMax: 60
+      ExpectedValue: 1
       Money: 0

@@ -8,6 +8,7 @@ using UnityEngine;
 public class StatusOfExplorer
 {
     public float StaminaMax = 60.0f;
+    public float ExpectedValue = 1.0f;
     public int Money = 10;
 }
 
