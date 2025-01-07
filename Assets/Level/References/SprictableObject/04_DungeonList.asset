@@ -16,6 +16,11 @@ MonoBehaviour:
   - Info:
       Name: Test
       Map: {fileID: 5103324343374910421, guid: 968ea872f8b6b90468287cebee7a3a20, type: 3}
+      Width: 14
+      Height: 9
     Status:
       Time: 0
       Speed: 0
+      InitialMoney: 1000
+      InitialPopularity: 10
+      InitialRiskLevel: 10

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
 
 /// <summary>
 /// 入力・レスポンスを管理
@@ -12,11 +13,14 @@ public class ActionManager : MonoBehaviour
     [SerializeField] private float _cameraSpeed = 1.0f;
     [SerializeField] private MonsterPool _monsterPool;
     [SerializeField] private GameObject _monsterImage;
+    [SerializeField] private InGameManager _gameManager;
+    [SerializeField] private UIManager _uiManager;
     private bool _isMovingCamera = false;
     private Vector2 _position = Vector2.zero;
     private Vector2 _delta = Vector2.zero;
     private UIButton _uiButton;
     private Image _image;
+
 
     public void OnPress(InputAction.CallbackContext context)
     {
@@ -56,9 +60,9 @@ public class ActionManager : MonoBehaviour
             else if (_uiButton != null)
             {
                 int index = _uiButton.ReleaseOutBehave();
-                Vector3 position = Camera.main.ScreenToWorldPoint(_position);
-                position.z = 0.0f;
-                _monsterPool.Get(index, position);
+
+                // モンスター出現処理
+                SummonMonster(index);
 
                 //仮置き部分
                 _image.enabled = false;
@@ -106,6 +110,20 @@ public class ActionManager : MonoBehaviour
         int layerNum = LayerMask.NameToLayer("UI");
         int layerMask = 1 << layerNum;
         return Physics2D.Raycast(_position, (Vector2)ray.direction, 20.0f, layerMask);
+    }
+
+    private bool SummonMonster(int index)
+    {
+        if(!_gameManager.CanPurchase(_monsterPool.GetCost(index)))
+        {
+            return false;
+        }
+        Vector3 position = Camera.main.ScreenToWorldPoint(_position);
+        position.z = 0.0f;
+        _monsterPool.Get(index, position);
+
+        return true;
+
     }
 
     private Vector3 Vec2ToVec3(Vector2 vector2)

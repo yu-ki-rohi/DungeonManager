@@ -20,7 +20,18 @@ public class ObjectPoolBase : MonoBehaviour
         return obj;
     }
 
-    public void Release(GameObject obj)
+    /// <summary>
+    /// プールに返却する
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="index">
+    /// 処理分岐のためのインデックス
+    /// 0:デフォルト
+    /// 1:敗退
+    /// </param>
+    /// <param name="intData"></param>
+    /// <param name="floatData"></param>
+    public virtual void Release(GameObject obj, int index = 0, int[] intData = null, float[] floatData = null)
     {
         _pool.Release(obj);
     }

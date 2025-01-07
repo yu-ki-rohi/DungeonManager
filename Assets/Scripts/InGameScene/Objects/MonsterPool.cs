@@ -9,21 +9,28 @@ public class MonsterPool : CharacterPool
 
     private Signpost[] _signposts;
 
+    public int GetCost(int index)
+    {
+        return _monsterList.GetOptionData(index).OptionStatus.Cost;
+    }
+
     public GameObject Get(int id, Vector3 position)
     {
         if (_signposts.Length <= 0)
         {
+            // 初期化不良
+            // DungeonにSignpostsParentが登録されていない
             Debug.LogAssertion("Initialize MonsterPool !!");
             return null;
         }
-
-        // idが範囲外のときはnullを返す
         if (id < 0 || id >= _monsterList.List.Count)
         {
+            // アクセス違反
+            Debug.LogAssertion("Illegal Access in Monster List !!");
             return null;
         }
 
-        // 余裕ができたらアルゴリズムを変更
+        // 余裕があればアルゴリズムを変更したい
 
         // 出現位置の根本側を決定
         float distance = -1.0f;

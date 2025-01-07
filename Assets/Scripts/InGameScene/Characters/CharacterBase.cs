@@ -24,7 +24,7 @@ public class CharacterBase : MonoBehaviour
     private List<CharacterBase> _opponentList = new List<CharacterBase>();
 
     private int _currentHp;
-    private float _attackTimer;
+    private Timer _attackTimer;
     private int _targetIndex = 0;
 
     // プロパティ
@@ -52,7 +52,7 @@ public class CharacterBase : MonoBehaviour
 
         // TODO:その他初期化処理
         _currentHp = _charaData.Status.MaxHp;
-        _attackTimer = _charaData.Status.CoolTime;
+        _attackTimer = new Timer(Battle, _charaData.Status.CoolTime);
         _isReturn = false;
         _targetIndex = 0;
     }
@@ -115,15 +115,7 @@ public class CharacterBase : MonoBehaviour
     {
         if (_opponentList.Count > 0)
         {
-            if (_attackTimer < 0)
-            {
-                Battle();
-                _attackTimer = _charaData.Status.CoolTime;
-            }
-            else
-            {
-                _attackTimer -= Time.deltaTime;
-            }
+            _attackTimer.Update(Time.deltaTime);
         }
         else
         {
@@ -233,10 +225,10 @@ public class CharacterBase : MonoBehaviour
     /// <summary>
     /// 自身がシーンから退場する際に呼び出す
     /// </summary>
-    protected void DisAppear()
+    protected void DisAppear(int index = 0, int[] intData = null, float[] floatData = null)
     {
         FinishBattle();
-        _pool.Release(gameObject);
+        _pool.Release(gameObject, index, intData, floatData);
     }
 
     /// <summary>
@@ -279,11 +271,11 @@ public class CharacterBase : MonoBehaviour
     /// <summary>
     /// キャラクターが倒された際のメソッド
     /// </summary>
-    private void Die()
+    protected virtual void Die(int[] intData = null, float[] floatData = null)
     {
         // 以下に倒された際の処理
 
         //
-        DisAppear();
+        DisAppear(1, intData, floatData);
     }
 }

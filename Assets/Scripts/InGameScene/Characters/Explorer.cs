@@ -5,11 +5,13 @@ using UnityEngine;
 public class Explorer : CharacterBase
 {
     private float _stamina;
+    private int _money;
     private float _satisfaction = 0.0f;
     public void Initialize(Signpost destination, Signpost before, ExplorerData charaData, Vector3 dir, ObjectPoolBase pool)
     {
         base.Initialize(destination,before, charaData, dir, pool);
-        _stamina = charaData.OptionStatus.StaminaMax;
+        _stamina = charaData.OptionStatus.Stamina;
+        _money = charaData.OptionStatus.Money;
     }
 
     protected override void Action()
@@ -55,6 +57,13 @@ public class Explorer : CharacterBase
             }
         }
     }
+
+    protected override void Die(int[] intData = null, float[] floatData = null)
+    {
+        intData = new int[1] { _money };
+        base.Die(intData, null);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Monster")
@@ -74,7 +83,8 @@ public class Explorer : CharacterBase
         {
             if (IsReturn)
             {
-                DisAppear();
+                float[] floatData = new float[1] { _satisfaction };
+                DisAppear(0, null, floatData);
             }
         }
     }

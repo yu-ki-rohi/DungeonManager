@@ -22,6 +22,6 @@ MonoBehaviour:
       CoolTime: 1
       Speed: 1.12
     OptionStatus:
-      StaminaMax: 60
+      Stamina: 60
       ExpectedValue: 1
-      Money: 0
+      Money: 150
