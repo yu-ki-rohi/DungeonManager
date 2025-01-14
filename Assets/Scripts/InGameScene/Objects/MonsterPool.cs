@@ -14,6 +14,12 @@ public class MonsterPool : CharacterPool
         return _monsterList.GetOptionData(index).OptionStatus.Cost;
     }
 
+    public Sprite GetSprite(int index)
+    {
+        return _monsterList.Get(index).Info.Sprite;
+    }
+    
+
     public GameObject Get(int id, Vector3 position)
     {
         if (_signposts.Length <= 0)

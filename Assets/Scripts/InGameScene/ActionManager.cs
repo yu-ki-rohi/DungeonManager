@@ -15,6 +15,7 @@ public class ActionManager : MonoBehaviour
     [SerializeField] private GameObject _monsterImage;
     [SerializeField] private InGameManager _gameManager;
     [SerializeField] private UIManager _uiManager;
+    [SerializeField] private ItemList _itemList;
     private bool _isMovingCamera = false;
     private Vector2 _position = Vector2.zero;
     private Vector2 _delta = Vector2.zero;
@@ -24,6 +25,7 @@ public class ActionManager : MonoBehaviour
 
     public void OnPress(InputAction.CallbackContext context)
     {
+        // 押した瞬間
         if(context.performed)
         {
             RaycastHit2D hit = CheckHitUI();
@@ -31,7 +33,19 @@ public class ActionManager : MonoBehaviour
             {
                 if(hit.collider.TryGetComponent<UIButton>(out var uiButton))
                 {
-                    _uiButton = uiButton.PressBehave();
+                    int index;
+                    UIButton.UIType type;
+                    _uiButton = uiButton.PressBehave(out type, out index);
+
+                    switch(type)
+                    {
+                        case UIButton.UIType.MonsterRepository:
+                            _image.sprite = _monsterPool.GetSprite(index);
+                            break;
+                        case UIButton.UIType.ItemRepository:
+                            _image.sprite = _itemList.Get(index).Info.Sprite;
+                            break;
+                    }
 
                     //仮置き部分
                     _image.enabled = true;
@@ -41,34 +55,46 @@ public class ActionManager : MonoBehaviour
             }
             _isMovingCamera = true;
         }
+        // 離した瞬間
         else if(context.canceled)
         {
-            RaycastHit2D hit = CheckHitUI();
             _isMovingCamera = false;
-
-            if (hit)
+            if (_uiButton != null)
             {
-                if (hit.collider.TryGetComponent<UIButton>(out var uiButton))
+                RaycastHit2D hit = CheckHitUI();
+                if (hit)
                 {
-                    uiButton.ReleaseInBehave();
+                    if (hit.collider.TryGetComponent<UIButton>(out var uiButton))
+                    {
+                        int index;
+                        uiButton.ReleaseInBehave(out index);
+
+                        //仮置き部分
+                        _image.enabled = false;
+                        //
+                    }
+                }
+                else
+                {
+                    int index;
+                    UIButton.UIType uiType = _uiButton.ReleaseOutBehave(out index);
+                    switch(uiType)
+                    {
+                        case UIButton.UIType.MonsterRepository:
+                            // モンスター出現処理
+                            SummonMonster(index);
+                            break;
+                        case UIButton.UIType.ItemRepository:
+                            SetItem(index);
+                            break;
+                    }
 
                     //仮置き部分
                     _image.enabled = false;
                     //
                 }
-            }
-            else if (_uiButton != null)
-            {
-                int index = _uiButton.ReleaseOutBehave();
-
-                // モンスター出現処理
-                SummonMonster(index);
-
-                //仮置き部分
-                _image.enabled = false;
-                //
-            }
-            _uiButton = null;
+                _uiButton = null;
+            }          
         }
     }
 
@@ -112,6 +138,14 @@ public class ActionManager : MonoBehaviour
         return Physics2D.Raycast(_position, (Vector2)ray.direction, 20.0f, layerMask);
     }
 
+    private RaycastHit2D CheckHitObject(string layerName)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(_position);
+        int layerNum = LayerMask.NameToLayer(layerName);
+        int layerMask = 1 << layerNum;
+        return Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction, 20.0f, layerMask);
+    }
+
     private bool SummonMonster(int index)
     {
         if(!_gameManager.CanPurchase(_monsterPool.GetCost(index)))
@@ -126,8 +160,23 @@ public class ActionManager : MonoBehaviour
 
     }
 
-    private Vector3 Vec2ToVec3(Vector2 vector2)
+    private void SetItem(int index)
     {
-        return new Vector3(vector2.x, vector2.y, 0);
+        RaycastHit2D hit = CheckHitObject("TreasureBox");
+        if(hit)
+        {
+            TreasureBox treasureBox = hit.collider.GetComponent<TreasureBox>();
+            if(treasureBox == null || treasureBox.IsClosed())
+            {
+                return;
+            }
+
+            int value = _itemList.Get(index).Status.Value;
+            if(_gameManager.CanPurchase(value))
+            {
+                treasureBox.SetTreasure(value);
+            }
+
+        }
     }
 }

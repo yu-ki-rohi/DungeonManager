@@ -19,8 +19,8 @@ MonoBehaviour:
       Width: 14
       Height: 9
     Status:
-      Time: 0
+      Time: 180
       Speed: 0
       InitialMoney: 1000
-      InitialPopularity: 10
-      InitialRiskLevel: 10
+      InitialPopularity: 100
+      InitialRiskLevel: 1

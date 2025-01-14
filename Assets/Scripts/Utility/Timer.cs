@@ -11,6 +11,8 @@ public class Timer
     private TimeoutBehavior _behavior;
     private float _timer;
 
+    public float CurrentTime { get { return _timer; } }
+
     public Timer(TimeoutBehavior behavior, float time)
     {
         _behavior = behavior;
@@ -18,7 +20,12 @@ public class Timer
         Time = time;
     }
 
-    public void Update(float deltaTime)
+    public void PrepareCountDown()
+    {
+        _timer = Time;
+    }
+
+    public void CountUp(float deltaTime)
     {
         if(_timer > Time)
         {
@@ -28,6 +35,19 @@ public class Timer
         else
         {
             _timer += deltaTime;
+        }
+    }
+
+    public void CountDown(float deltaTime)
+    {
+        if (_timer < 0.0f)
+        {
+            _behavior();
+            _timer = Time;
+        }
+        else
+        {
+            _timer -= deltaTime;
         }
     }
 }

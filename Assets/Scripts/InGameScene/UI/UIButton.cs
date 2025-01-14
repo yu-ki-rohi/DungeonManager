@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class UIButton : MonoBehaviour
 {
+    public enum  UIType
+    {
+        Default,
+        MonsterRepository,
+        ItemRepository
+    }
     /// <summary>
     /// ボタンを押したときのふるまい
     /// </summary>
     /// <returns>自身を渡す</returns>
-    public virtual UIButton PressBehave()
+    public virtual UIButton PressBehave(out UIType uiType, out int index)
     {
+        index = 0;
+        uiType = UIType.Default;
         return this;
     }
 
@@ -17,18 +25,20 @@ public class UIButton : MonoBehaviour
     /// ボタン上で離された時のふるまい
     /// </summary>
     /// <returns></returns>
-    public virtual int ReleaseInBehave()
+    public virtual UIType ReleaseInBehave(out int index)
     {
-        return -1;
+        index = 0;
+        return UIType.Default;
     }
 
     /// <summary>
     /// ボタン外で離された時のふるまい
     /// </summary>
     /// <returns></returns>
-    public virtual int ReleaseOutBehave()
+    public virtual UIType ReleaseOutBehave(out int index)
     {
-        return -1;
+        index = 0;
+        return UIType.Default;
     }
 
     // Start is called before the first frame update

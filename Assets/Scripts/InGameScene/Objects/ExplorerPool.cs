@@ -10,7 +10,7 @@ public class ExplorerPool : CharacterPool
     private Signpost _startDestination;
     private Vector3 _firstDir = Vector3.zero;
 
-    public GameObject Get(int id)
+    public GameObject Get(int id, float riskLevel = 1.0f)
     {
         if (_firstDir == Vector3.zero)
         {
@@ -30,7 +30,7 @@ public class ExplorerPool : CharacterPool
         // TODO:•ûŒüA–Ú“I’n‚Æ’TõÒî•ñ‚È‚Ç‚Ì‰Šú‰»ˆ—
         if (explorer.TryGetComponent<Explorer>(out var charaBase))
         {
-            charaBase.Initialize(_startDestination, _startDestination, _explorerList.GetOptionData(id), _firstDir, this);
+            charaBase.Initialize(_startDestination, _startDestination, _explorerList.GetOptionData(id), _firstDir, this, riskLevel);
         }
         return explorer;
     }
@@ -47,12 +47,20 @@ public class ExplorerPool : CharacterPool
         switch(index)
         {
             case 0:
-
+                if (floatData != null && floatData.Length > 1)
+                {
+                    _gameManager.UpdatePopularity(floatData[0]);
+                    _gameManager.UpdateRiskLevel(-1.0f / (1.0f + floatData[1]));
+                }
                 break;
             case 1:
                 if(intData != null && intData.Length > 0)
                 {
                     _gameManager.EarnMoney(intData[0]);
+                }
+                if (floatData != null && floatData.Length > 0)
+                {
+                    _gameManager.UpdateRiskLevel(floatData[0]);
                 }
                 break;
         }

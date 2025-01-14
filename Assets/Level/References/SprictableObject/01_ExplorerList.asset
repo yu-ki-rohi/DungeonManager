@@ -23,5 +23,5 @@ MonoBehaviour:
       Speed: 1.12
     OptionStatus:
       Stamina: 60
-      ExpectedValue: 1
-      Money: 150
+      ExpectedValue: 50
+      Money: 500

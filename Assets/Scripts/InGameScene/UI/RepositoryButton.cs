@@ -5,20 +5,25 @@ using UnityEngine;
 public class RepositoryButton : UIButton
 {
     [SerializeField] protected int _index;
+    [SerializeField] protected UIType _type;
 
-    public override UIButton PressBehave()
+    public override UIButton PressBehave(out UIType uiType, out int index)
     {
-        return base.PressBehave();
+        uiType = _type;
+        index = _index;
+        return this;
     }
 
-    public override int ReleaseInBehave()
+    public override UIType ReleaseInBehave(out int index)
     {
-        return _index;
+        index = _index;
+        return _type;
     }
 
-    public override int ReleaseOutBehave()
+    public override UIType ReleaseOutBehave(out int index)
     {
-        return _index;
+        index = _index;
+        return _type;
     }
 
     // Start is called before the first frame update

@@ -12,15 +12,13 @@ public class InGameManager : MonoBehaviour
     [SerializeField] private UIManager _uiManager;
     private int _dungeonID = 0;
     private Timer _visitTimer;
+    private Timer _gameTimer;
     private int _money = 10;
-    private float _popularity = 0;
-    private float _riskLevel = 0;
+    private float _popularity = 0.0f;
+    private float _riskLevel = 1.0f;
 
 
-    private void ExplorerVisit()
-    {
-        _explorePool.Get(0);
-    }
+   
 
     public bool CanPurchase(int cost)
     {
@@ -38,6 +36,55 @@ public class InGameManager : MonoBehaviour
     {
         _money += money;
         _uiManager.ReflectMoney(_money);
+    }
+
+    public void UpdatePopularity(float popularity)
+    {
+        _popularity += popularity;
+        _uiManager.ReflectPopularity(_popularity);
+    }
+
+    public void UpdateRiskLevel(float risk)
+    {
+        _riskLevel += risk;
+        _uiManager.ReflectRiskLevel(_riskLevel);
+    }
+    private void ExplorerVisit()
+    {
+        _explorePool.Get(0, _riskLevel);
+    }
+
+    private void GameClear()
+    {
+
+    }
+
+    private void AdjustCamera()
+    {
+
+        if (Mathf.Abs(Camera.main.transform.position.x) > _dungeonList.Get(_dungeonID).Info.Width)
+        {
+            if (Camera.main.transform.position.x > 0)
+            {
+                Camera.main.transform.position += Vector3.left * Time.deltaTime * _cameraSpeed;
+            }
+            else
+            {
+                Camera.main.transform.position += Vector3.right * Time.deltaTime * _cameraSpeed;
+            }
+        }
+
+        if (Mathf.Abs(Camera.main.transform.position.y) > _dungeonList.Get(_dungeonID).Info.Height)
+        {
+            if (Camera.main.transform.position.y > 0)
+            {
+                Camera.main.transform.position += Vector3.down * Time.deltaTime * _cameraSpeed;
+            }
+            else
+            {
+                Camera.main.transform.position += Vector3.up * Time.deltaTime * _cameraSpeed;
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -64,6 +111,13 @@ public class InGameManager : MonoBehaviour
 
         _uiManager.ReflectMoney(_money);
 
+        _gameTimer = new Timer(GameClear, _dungeonList.Get(_dungeonID).Status.Time);
+        _gameTimer.PrepareCountDown();
+        _uiManager.ReflectTime(_gameTimer.CurrentTime);
+
+        _uiManager.ReflectRiskLevel(_riskLevel);
+        _uiManager.ReflectPopularity(_popularity);
+
         _visitTimer = new Timer(ExplorerVisit, _visitCoolTime);
         ExplorerVisit();
     }
@@ -71,30 +125,11 @@ public class InGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _visitTimer.Update(Time.deltaTime);
+        _visitTimer.CountUp(Time.deltaTime);
 
-        if(Mathf.Abs(Camera.main.transform.position.x) > _dungeonList.Get(_dungeonID).Info.Width) 
-        {
-            if(Camera.main.transform.position.x > 0)
-            {
-                Camera.main.transform.position += Vector3.left * Time.deltaTime * _cameraSpeed; 
-            }
-            else
-            {
-                Camera.main.transform.position += Vector3.right * Time.deltaTime * _cameraSpeed;
-            }
-        }
+        _gameTimer.CountDown(Time.deltaTime);
+        _uiManager.ReflectTime(_gameTimer.CurrentTime);
 
-        if (Mathf.Abs(Camera.main.transform.position.y) > _dungeonList.Get(_dungeonID).Info.Height)
-        {
-            if (Camera.main.transform.position.y > 0)
-            {
-                Camera.main.transform.position += Vector3.down * Time.deltaTime * _cameraSpeed;
-            }
-            else
-            {
-                Camera.main.transform.position += Vector3.up * Time.deltaTime * _cameraSpeed;
-            }
-        }
+        AdjustCamera();
     }
 }

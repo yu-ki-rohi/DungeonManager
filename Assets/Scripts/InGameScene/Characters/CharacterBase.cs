@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
 
+    // 参照するデータ
+    protected CharaData _charaData;   // いずれ取得のみに制限できるようにしたい
+
+    private SpriteRenderer _spriteRenderer;
     // 撤退状態かどうか・プレイヤーのみ?
     private bool _isReturn = false;
     // 目標となる道しるべ
@@ -18,8 +21,6 @@ public class CharacterBase : MonoBehaviour
     private Vector3 _dir = Vector3.zero;
     // 自身を管理しているプール
     private ObjectPoolBase _pool;
-    // 参照するデータ
-    private CharaData _charaData;   // いずれ取得のみに制限できるようにしたい
     // 戦闘相手のリスト
     private List<CharacterBase> _opponentList = new List<CharacterBase>();
 
@@ -115,7 +116,7 @@ public class CharacterBase : MonoBehaviour
     {
         if (_opponentList.Count > 0)
         {
-            _attackTimer.Update(Time.deltaTime);
+            _attackTimer.CountUp(Time.deltaTime);
         }
         else
         {
@@ -128,13 +129,18 @@ public class CharacterBase : MonoBehaviour
     /// </summary>
     protected virtual void Battle()
     {
-        if(_targetIndex < _opponentList.Count)
+        Attack(_charaData.Status.Attack);
+    }
+
+    protected void Attack(int damage)
+    {
+        if (_targetIndex < _opponentList.Count)
         {
-            _opponentList[_targetIndex].Damage(_charaData.Status.Attack);
+            _opponentList[_targetIndex].Damage(damage);
         }
         else
         {
-            _opponentList[0].Damage(_charaData.Status.Attack);
+            _opponentList[0].Damage(damage);
         }
     }
 

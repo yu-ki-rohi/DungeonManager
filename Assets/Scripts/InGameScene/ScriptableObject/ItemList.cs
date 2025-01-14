@@ -15,7 +15,7 @@ public class InfoOfItem
 [Serializable]
 public class StatusOfItem
 {
-    public float Value = 1.0f;
+    public int Value = 100;
 }
 
 [Serializable]

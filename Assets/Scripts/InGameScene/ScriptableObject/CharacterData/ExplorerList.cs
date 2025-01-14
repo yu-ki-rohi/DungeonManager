@@ -8,8 +8,8 @@ using UnityEngine;
 public class StatusOfExplorer
 {
     public float Stamina = 60.0f;
-    public float ExpectedValue = 1.0f;
-    public int Money = 10;
+    public int ExpectedValue = 50;
+    public int Money = 500;
 }
 
 [Serializable]
