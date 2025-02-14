@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 public class CharacterBase : MonoBehaviour

@@ -17,4 +17,4 @@ MonoBehaviour:
       Name: 
       Sprite: {fileID: 21300000, guid: d90598b1a27b9ce44913c2cca990071f, type: 3}
     Status:
-      Value: 100
+      Value: 200
